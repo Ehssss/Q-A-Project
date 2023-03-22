@@ -5,7 +5,7 @@ defmodule QnaWeb.HomeLive do
     {:ok, assign(socket, form: to_form(%{}))}
   end
 
-  def handle_event("goto_topic", %{"to_form" => %{"topic_name" => topic_name}}, socket) do
+  def handle_event("goto_topic", %{"topic_name" => topic_name}, socket) do
     topic_link = "/" <> topic_name
 
     # The code inside the function first extracts the "topic_name" parameter from the changeset data using pattern matching, and stores it in a variable named topic_name. It then constructs a URL for the new topic page by concatenating "/" and the topic_name variable, and stores it in a variable named topic_link.
