@@ -66,8 +66,7 @@ import_config "#{config_env()}.exs"
 
 # tailwind.config.js
 # module.exports = {
-#     plugins: [
-#     // ...
-#     require('@tailwindcss/forms'),
-#   ],
+#   plugins: [
+#     require('@tailwindcss/forms')
+#   ]
 # }

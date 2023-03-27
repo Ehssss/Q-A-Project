@@ -1,8 +1,10 @@
 defmodule QnaWeb.HomeLive do
   use QnaWeb, :live_view
+  require Logger
 
   def mount(_params, _session, socket) do
     username = "Anon"
+    one_question = Qna.Questions |> Qna.Repo.all()
 
     # if connected?(socket) do
     #   ChatWeb.Endpoint.subscribe(topic_name)
@@ -17,9 +19,18 @@ defmodule QnaWeb.HomeLive do
        anonymous?: true,
        username: username,
        message: "",
-       chat_messages: [],
+      questions: one_question,
        temporary_assigns: [chat_messages: []],
        form: to_form(%{})
      )}
   end
+
+  def handle_event("upvote", question.userid, socket )do
+  Logger.info(question.id)
+  end
+
+  # def handle_event("downvote", )do
+
+  # end
+
 end
