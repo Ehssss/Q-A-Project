@@ -34,19 +34,6 @@
             </p>
           </div>
         </div>
-        <!-- Links section -->
-        <div class="lg:w-80">
-          <div class="flex items-center justify-end">
-            <div class="flex">
-              <.link
-                patch={~p"/"}
-                class="ml-6 inline-flex items-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
-              >
-                Change Topic
-              </.link>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </nav>
@@ -61,10 +48,9 @@
             <!-- Start User List -->
             <div id="user-list">
               <p class="pb-4 mb-2">Logged in as: <span class="font-bold">???</span></p>
-
-              <h3 class="font-bold pb-4 mb-4 border-b">Active Topics:</h3>
-              <p class="py-1 font-medium">Topic 1</p>
-              <p class="py-1 font-medium">Topic 2</p>
+              <h3 class="font-bold pb-4 mb-4 border-b">Top Questions:</h3>
+              <p class="py-1 font-medium">Question 1</p>
+              <p class="py-1 font-medium">Question 2</p>
               <p class="py-1 font-medium">Etc</p>
             </div>
             <!-- End User List -->
@@ -95,28 +81,36 @@
             <br />
             <br />
             <!-- start our messages -->
+            
             <ul role="list" class="divide-y divide-gray-200 max-h-screen h-3/5 overflow-auto">
+              <%= for question <- @questions do %>
               <li class="relative bg-white py-5 px-4 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 hover:bg-gray-50">
                 <div class="flex justify-between space-x-3">
                   <div class="min-w-0 flex-1">
                     <a href="#" class="block focus:outline-none">
                       <span class="absolute inset-0" aria-hidden="true"></span>
+                      
                       <p class="truncate text-sm font-medium text-gray-900 mb-4">
-                        Gloria Roberston
+                        <%= question.username %>
                       </p>
                     </a>
                   </div>
                 </div>
+                
                 <div class="mt-1">
                   <p class="text-sm text-gray-600 line-clamp-2">
-                    Doloremque dolorem maiores assumenda dolorem facilis. Velit vel in a rerum natus facere. Enim rerum eaque qui facilis. Numquam laudantium sed id dolores omnis in. Eos reiciendis deserunt maiores et accusamus quod dolor.
+                    <%= question.body %>
                   </p>
                 </div>
-                <i class="fa-regular fa-thumbs-up fa-xl"></i>50
+             
+                
+                <i phx-click="upvote" phx-value=<%= [question.userid] %> class="fa-regular fa-thumbs-up fa-xl"></i> <%= question.upvotes %>
                 <i class="fa-regular fa-thumbs-down fa-xl"></i>
-              </li>
+              </li> 
+               <% end %>
               <!-- More messages... -->
-            </ul>
+            </ul> 
+          
             <!-- end of our messages -->
           </div>
           <!-- End main area -->
