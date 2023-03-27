@@ -4,7 +4,6 @@ defmodule Qna.Questions do
 
   schema "question" do
     field :body, :string
-    field :topic, :string
     field :upvotes, :integer
     field :userid, :integer
     field :username, :string
@@ -15,7 +14,7 @@ defmodule Qna.Questions do
   @doc false
   def changeset(questions, attrs) do
     questions
-    |> cast(attrs, [:username, :userid, :upvotes, :body, :topic])
-    |> validate_required([:username, :userid, :upvotes, :body, :topic])
+    |> cast(attrs, [:username, :userid, :upvotes, :body])
+    |> validate_required([:username, :userid, :upvotes, :body])
   end
 end

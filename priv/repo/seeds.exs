@@ -5,27 +5,36 @@
 # Inside the script, you can read and write to any of your
 # repositories directly:
 #
-users = [
+# users = [
+#   %{
+#     username: "Alice",
+#     email: "alice@example.com",
+#     password: "password",
+#     inserted_at: NaiveDateTime.truncate(DateTime.utc_now(), :second),
+#     updated_at: NaiveDateTime.truncate(DateTime.utc_now(), :second)
+#   },
+#   %{
+#     username: "Bob",
+#     email: "bob@example.com",
+#     password: "password",
+#     inserted_at: NaiveDateTime.truncate(DateTime.utc_now(), :second),
+#     updated_at: NaiveDateTime.truncate(DateTime.utc_now(), :second)
+#   },
+#   %{
+#     username: "Charlie",
+#     email: "charlie@example.com",
+#     password: "password",
+#     inserted_at: NaiveDateTime.truncate(DateTime.utc_now(), :second),
+#     updated_at: NaiveDateTime.truncate(DateTime.utc_now(), :second)
+#   }
+# ]
+
+questions = [
   %{
-    username: "Alice",
-    email: "alice@example.com",
-    password: "password",
-    inserted_at: NaiveDateTime.truncate(DateTime.utc_now(), :second),
-    updated_at: NaiveDateTime.truncate(DateTime.utc_now(), :second)
-  },
-  %{
-    username: "Bob",
-    email: "bob@example.com",
-    password: "password",
-    inserted_at: NaiveDateTime.truncate(DateTime.utc_now(), :second),
-    updated_at: NaiveDateTime.truncate(DateTime.utc_now(), :second)
-  },
-  %{
-    username: "Charlie",
-    email: "charlie@example.com",
-    password: "password",
-    inserted_at: NaiveDateTime.truncate(DateTime.utc_now(), :second),
-    updated_at: NaiveDateTime.truncate(DateTime.utc_now(), :second)
+    body: "what came first, the chicken or the egg?",
+    upvotes: 10,
+    userid: 1,
+    username: "First"
   }
 ]
 
@@ -33,4 +42,5 @@ users = [
 #
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
-Qna.Repo.insert_all(Qna.Users, users)
+# Qna.Repo.insert_all(Qna.Users, users)
+Qna.Repo.insert_all(Qna.Questions, questions)

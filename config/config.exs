@@ -12,6 +12,7 @@ config :qna,
 
 # Configures the endpoint
 config :qna, QnaWeb.Endpoint,
+  server: true,
   url: [host: "localhost"],
   render_errors: [
     formats: [html: QnaWeb.ErrorHTML, json: QnaWeb.ErrorJSON],
@@ -63,11 +64,10 @@ config :phoenix, :json_library, Jason
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"
 
-// tailwind.config.js
-module.exports = {
-  // ...
-  plugins: [
-    // ...
-    require('@tailwindcss/forms'),
-  ],
-}
+# tailwind.config.js
+# module.exports = {
+#     plugins: [
+#     // ...
+#     require('@tailwindcss/forms'),
+#   ],
+# }
