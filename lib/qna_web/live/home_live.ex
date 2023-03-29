@@ -1,36 +1,51 @@
 defmodule QnaWeb.HomeLive do
+  alias Qna.Repo
   use QnaWeb, :live_view
+  import Ecto.Query
+  import Repo
   require Logger
 
   def mount(_params, _session, socket) do
     username = "Anon"
-    one_question = Qna.Questions |> Qna.Repo.all()
-
-    # if connected?(socket) do
-    #   ChatWeb.Endpoint.subscribe(topic_name)
-    #   ChatWeb.Presence.track(self(), topic_name, username, %{})
-    # end
-
-    # subscribing the LiveView process to a PubSub topic and tracking the user's presence on that topic. This is an important step in enabling real-time communication between the server and the client, as it allows the server to send messages to the LiveView process when new data becomes available.
 
     {:ok,
      assign(socket,
        users_online: [],
-       anonymous?: true,
+       anonymous: false,
        username: username,
        message: "",
-      questions: one_question,
+       questions: Qna.Questions |> Qna.Repo.all(),
        temporary_assigns: [chat_messages: []],
        form: to_form(%{})
      )}
   end
 
-  def handle_event("upvote", question.userid, socket )do
-  Logger.info(question.id)
+  def handle_event("question_submit", %{"enter_q" => enter_q}, socket) do
+    Repo.insert(%Qna.Questions{body: enter_q, upvotes: -10, userid: 10, username: "JAmes"})
+    {:noreply, socket}
   end
 
-  # def handle_event("downvote", )do
+  def handle_event("toggle", _params, socket) do
+    new_anonymous = !socket.assigns.anonymous
+    {:noreply, assign(socket, anonymous: new_anonymous)}
+  end
 
-  # end
+  def handle_event("upvote", %{"num" => num, "ref" => ref}, socket) do
+    user_data = from q in Qna.Questions, where: q.id == ^ref
+    question = Repo.one(user_data)
+    IO.inspect(question)
+    IO.inspect(num)
+    update_data = Qna.Questions.changeset(question, %{upvotes: String.to_integer(num) + 1})
+    Repo.update(update_data)
+    IO.inspect(update_data)
 
+    # IO.inspect(results, charlists: :as_lists)
+
+    # query =
+    #   from u in "users",
+    #     where: u.age > 18,
+    #     select: u.name
+
+    {:noreply, socket}
+  end
 end

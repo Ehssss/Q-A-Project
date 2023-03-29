@@ -53,6 +53,15 @@ questions = [
     username: "3th",
     inserted_at: NaiveDateTime.truncate(DateTime.utc_now(), :second),
     updated_at: NaiveDateTime.truncate(DateTime.utc_now(), :second)
+  },
+  %{
+    body:
+      "It replaces the position that corresponds to the index with the value in the :current key, which is either :black or :white, depending on which players turn it is. In the template, we add phx-click and",
+    upvotes: 90,
+    userid: 4,
+    username: "QWErtyuoiopasdfghjklzxcvbnmmnbvcxzlkjhgfdsaiuytrewq",
+    inserted_at: NaiveDateTime.truncate(DateTime.utc_now(), :second),
+    updated_at: NaiveDateTime.truncate(DateTime.utc_now(), :second)
   }
 ]
 
