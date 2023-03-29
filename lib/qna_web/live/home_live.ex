@@ -6,23 +6,26 @@ defmodule QnaWeb.HomeLive do
   require Logger
 
   def mount(_params, _session, socket) do
-    username = "Anon"
-
+    username = "Anonymous"
+    questions = Qna.Repo.all(from q in Qna.Questions, order_by: [desc: q.upvotes]) |> IO.inspect()
     {:ok,
      assign(socket,
        users_online: [],
        anonymous: false,
        username: username,
-       message: "",
-       questions: Qna.Questions |> Qna.Repo.all(),
-       temporary_assigns: [chat_messages: []],
+       questions: questions,
        form: to_form(%{})
      )}
   end
 
+
   def handle_event("question_submit", %{"enter_q" => enter_q}, socket) do
-    Repo.insert(%Qna.Questions{body: enter_q, upvotes: -10, userid: 10, username: "JAmes"})
+    Repo.insert(%Qna.Questions{body: enter_q, upvotes: 0, username: socket.assigns.username })
     {:noreply, socket}
+  end
+
+  def handle_event("name_submit",%{"enter_name" => enter_name}, socket) do
+    {:noreply, assign(socket, username: enter_name)}
   end
 
   def handle_event("toggle", _params, socket) do
@@ -34,18 +37,23 @@ defmodule QnaWeb.HomeLive do
     user_data = from q in Qna.Questions, where: q.id == ^ref
     question = Repo.one(user_data)
     IO.inspect(question)
+    IO.inspect(ref)
+
     IO.inspect(num)
     update_data = Qna.Questions.changeset(question, %{upvotes: String.to_integer(num) + 1})
     Repo.update(update_data)
     IO.inspect(update_data)
+    {:noreply, socket}
+  end
 
-    # IO.inspect(results, charlists: :as_lists)
-
-    # query =
-    #   from u in "users",
-    #     where: u.age > 18,
-    #     select: u.name
-
+  def handle_event("downvote", %{"num" => num, "ref" => ref}, socket) do
+    user_data = from q in Qna.Questions, where: q.id == ^ref
+    question = Repo.one(user_data)
+    IO.inspect(question)
+    IO.inspect(num)
+    update_data = Qna.Questions.changeset(question, %{downvotes: String.to_integer(num) - 1})
+    Repo.update(update_data)
+    IO.inspect(update_data)
     {:noreply, socket}
   end
 end

@@ -47,7 +47,7 @@
           <div class="relative h-full" style="min-height: 12rem">
             <!-- Start User List -->
             <div id="user-list">
-              <p class="pb-4 mb-2">Logged in as: <span class="font-bold">???</span></p>
+              <p class="pb-4 mb-2">Logged in as: <span class="font-bold"><%=@username%></span></p>
               <h3 class="font-bold pb-4 mb-4 border-b">Top Questions:</h3>
               <p class="py-1 font-medium">Question 1</p>
               <p class="py-1 font-medium">Question 2</p>
@@ -80,24 +80,20 @@
             <br />
             <br />
             <!-- start our messages -->
-            <ul role="list" class="divide-y divide-gray-200 max-h-screen h-3/5 overflow-auto">
+            <ul class="divide-gray-200 max-h-screen h-3/5 overflow-auto">
               <%= for question <- @questions do %>
                 <li class="relative bg-white py-5 px-4 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-600 hover:bg-gray-50">
                   <div class="flex justify-between space-x-3">
                     <div class="min-w-0 flex-1">
-                      <a
-                        href="#"
-                        class="block focus:outline-none"
-                        phx-click="upvote"
-                        phx-value-ref={question.userid}
-                        phx-value-num={question.upvotes}
+                      <div
+                        class="block"
                       >
-                        <span class="absolute inset-0" aria-hidden="true"></span>
+                        <%!-- <span class="absolute inset-0" aria-hidden="true"></span> --%>
 
                         <p class="truncate text-sm font-medium text-gray-900 mb-4">
                           <%= question.username %>
                         </p>
-                      </a>
+                      </div>
                     </div>
                   </div>
 
@@ -107,11 +103,17 @@
                     </p>
                   </div>
 
-                  <div style="display: flex; justify-content: flex-end; align-items: center; ">
-                    <i class="fa-regular fa-thumbs-up fa-xl pr-2"></i>
+                  <div style="display: flex; justify-content: flex-end; align-items: center;">
+                    <i class="fa-regular fa-thumbs-up fa-xl pr-2 cursor-pointer" phx-click="upvote"
+                    phx-value-ref={question.id}
+                    phx-value-num={question.upvotes}></i>
+                    
                     <%= question.upvotes %>
-                    <i class="fa-regular fa-thumbs-down fa-xl pl-2"></i>
+                    <i class="fa-regular fa-thumbs-down fa-xl pl-2 cursor: pointer;" phx-click="downvote"
+                    phx-value-ref={question.id}
+                    phx-value-num={question.upvotes}></i>
                   </div>
+                  <i class="fa-regular fa-comment-dots fa-xl pr-2"></i>10 replies
                 </li>
               <% end %>
               <!-- More messages... -->
@@ -157,14 +159,10 @@
             <label for="email" class="block text-sm font-medium leading-6 text-gray-900">
               Name
             </label>
-            <div class="mt-2">
-              <input
-                type="text"
-                name="name"
-                id="name"
-                class="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                placeholder="Your name"
-              />
+            <div class="mt-1">
+              <.simple_form for={@form} phx-submit="name_submit"> 
+                <.input field={@form[:enter_name]} placeholder="Enter your name" />
+              </.simple_form>
             </div>
           </div>
           <!-- End whatever you want here -->
