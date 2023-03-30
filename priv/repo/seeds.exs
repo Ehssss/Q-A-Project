@@ -47,7 +47,7 @@ answers = [
     body: "idk lol",
     upvotes: -10,
     username: "Jessie",
-    question_id: 9,
+    question_id: 15,
     inserted_at: NaiveDateTime.truncate(DateTime.utc_now(), :second),
     updated_at: NaiveDateTime.truncate(DateTime.utc_now(), :second)
   },
@@ -55,7 +55,7 @@ answers = [
     body: "I think it's a^2 + b^2 = c^2",
     upvotes: 23,
     username: "James",
-    question_id: 9,
+    question_id: 15,
     inserted_at: NaiveDateTime.truncate(DateTime.utc_now(), :second),
     updated_at: NaiveDateTime.truncate(DateTime.utc_now(), :second)
   },
@@ -63,7 +63,7 @@ answers = [
     body: "Are you serious?",
     upvotes: 400,
     username: "Obama Obama",
-    question_id: 8,
+    question_id: 16,
     inserted_at: NaiveDateTime.truncate(DateTime.utc_now(), :second),
     updated_at: NaiveDateTime.truncate(DateTime.utc_now(), :second)
   },
@@ -71,7 +71,7 @@ answers = [
     body: "To exercise its animal rights.",
     upvotes: -3,
     username: "StayWoke",
-    question_id: 7,
+    question_id: 15,
     inserted_at: NaiveDateTime.truncate(DateTime.utc_now(), :second),
     updated_at: NaiveDateTime.truncate(DateTime.utc_now(), :second)
   }
@@ -83,6 +83,8 @@ answers = [
 # and so on) as they will fail if something goes wrong.
 # Qna.Repo.insert_all(Qna.Users, users)
 
-# Qna.Repo.insert_all(Qna.Questions, questions)
+Qna.Repo.insert_all(Qna.Questions, questions)
 
 Qna.Repo.insert_all(Qna.Answers, answers)
+
+# Make sure answer id's and question id's match as appropriate
