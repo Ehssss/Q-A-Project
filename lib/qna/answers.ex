@@ -4,20 +4,24 @@ defmodule Qna.Answers do
 
   schema "answers" do
     field :body, :string
-    field :topic, :string
     field :upvotes, :integer
-    field :userid, :integer
+    # field :userid, :integer
     field :username, :string
-
-    # belongs_to :user, Qna.User
-    # belongs_to :question, Qna.Question
+    belongs_to :question, Qna.Questions
+    # field :question_id, :integer
     timestamps()
   end
 
   @doc false
   def changeset(answers, attrs) do
     answers
-    |> cast(attrs, [:username, :userid, :upvotes, :body, :topic])
-    |> validate_required([:username, :userid, :upvotes, :body, :topic])
+    |> cast(attrs, [:username, :upvotes, :body])
+    |> validate_required([:username, :upvotes, :body])
+  end
+
+  def update_changeset(answers, attrs) do
+    answers
+    |> cast(attrs, [:upvotes])
+    |> validate_required([:upvotes])
   end
 end

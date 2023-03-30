@@ -1,5 +1,5 @@
 import Config
-
+# Database info
 # Configure your database
 config :qna, Qna.Repo,
   username: "postgres",
